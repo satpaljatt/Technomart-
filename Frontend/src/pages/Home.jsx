@@ -14,7 +14,9 @@ const Home = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/products');
+
         setProducts(response.data);
+        
         console.log("Backend se ye data aaya hai:", response.data);
       } catch (error) {
         console.log("Data lane mein error:", error);

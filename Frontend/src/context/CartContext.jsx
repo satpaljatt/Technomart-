@@ -2,80 +2,92 @@ import React, { createContext, useEffect, useState } from 'react';
 
 export const CartContext = createContext()
 
- export const CartProvider = ({children}) => {
+export const CartProvider = ({ children }) => {
 
-   const [cartItems, setCartItems] = useState(
-     () => {
+  const [cartItems, setCartItems] = useState(
+    () => {
        
-       const savedCart = localStorage.getItem("cart");
+      const savedCart = localStorage.getItem("cart");
    
-       if (savedCart) {
-         return JSON.parse(savedCart);
-       }
-       else {
-         return [];
-       }
-     }
+      if (savedCart) {
+        return JSON.parse(savedCart);
+      }
+      else {
+        return [];
+      }
+    }
   )
 
+             
+  const addToCart = (product) => {
+       
+    const existingItem = cartItems.find((item) =>
+      item._id === product._id);
      
-     
-     
-     
-           
-     const addToCart = (product) => {
+    if (existingItem) {
+      setCartItems(
+        cartItems.map((item) => {
+          if (item._id === product._id) {
+            return { ...item, quantity: item.quantity + 1 };
+          }
+          return item;
+        })
+      );
+    }
+    else {
          
-        setCartItems([...cartItems, { ...product, quantity: 1 }])
+      setCartItems([...cartItems, { ...product, quantity: 1 }])
 
-         console.log("Button click hua! Ye item jhole mein jayega:", product);
-     }
+      console.log("Button click hua! Ye item jhole mein jayega:", product);
+    }
+  }
 
-    const  increaseQuantity = (id) => {
-    setCartItems(
-      cartItems.map((item) => {
-        if (item._id === id) {
-          return { ...item, quantity: item.quantity + 1 };
-        }
-        return item;
-      })
-    );
-   };
+    const increaseQuantity = (id) => {
+      setCartItems(
+        cartItems.map((item) => {
+          if (item._id === id) {
+            return { ...item, quantity: item.quantity + 1 };
+          }
+          return item;
+        })
+      );
+    };
    
-   const decreaseQuantity = (id) => {
-     setCartItems(
-       cartItems.map((item) => {
+    const decreaseQuantity = (id) => {
+      setCartItems(
+        cartItems.map((item) => {
          
-         if (item._id === id && item.quantity > 1) {
-           return { ...item, quantity: item.quantity - 1 };
-         }
-         return item;
-       })
-     );
-   };
+          if (item._id === id && item.quantity > 1) {
+            return { ...item, quantity: item.quantity - 1 };
+          }
+          return item;
+        })
+      );
+    };
 
-   const removeFromCart = (id) => {
+    const removeFromCart = (id) => {
      
-     setCartItems(
-       cartItems.filter(
-         (item) =>
-           item._id !== id
-       )
-     );
-   };
+      setCartItems(
+        cartItems.filter(
+          (item) =>
+            item._id !== id
+        )
+      );
+    };
 
 
-   useEffect(() => {
+    useEffect(() => {
 
-     localStorage.setItem("cart", JSON.stringify(cartItems))
+      localStorage.setItem("cart", JSON.stringify(cartItems))
 
-   },[cartItems]);
+    }, [cartItems]);
 
-     return (
+    return (
          
-         <CartContext.Provider value={{ cartItems, addToCart, increaseQuantity, decreaseQuantity,removeFromCart }}>
-             {children}
-         </CartContext.Provider>
+      <CartContext.Provider value={{ cartItems, addToCart, increaseQuantity, decreaseQuantity, removeFromCart }}>
+        {children}
+      </CartContext.Provider>
          
-     )
- }
+    )
+  }
 

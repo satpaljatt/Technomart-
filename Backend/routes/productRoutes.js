@@ -1,10 +1,8 @@
 import express from 'express';
-import Product from '../models/productModel.js'; // Godaam (Model) ka access liya
+import Product from '../models/productModel.js';
 
-const router = express.Router(); // Router wo traffic police hai jo rasta batayega
+const router = express.Router();
 
-// 1. Saara Samaan Mangne ka rasta
-// Rasta: GET /api/products
 router.get('/', async (req, res) => {
     // Product.find({}) matlab DB mein jao aur sab kuch utha lao
     const products = await Product.find({});

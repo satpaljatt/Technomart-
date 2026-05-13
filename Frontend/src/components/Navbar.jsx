@@ -33,6 +33,20 @@ const Navbar = () => {
           </span>
         </Link>
 
+        <Link to = "/login" className="bg-[#F5E0C3] hover:bg-[#EBD5B0] px-5 py-2.5 rounded-lg font-bold flex items-center gap-3 transition-all shadow-md text-[#5d4037]">
+
+          <span>
+            login
+          </span>
+        </Link>
+
+        <Link to = "/signup" className="bg-[#F5E0C3] hover:bg-[#EBD5B0] px-5 py-2.5 rounded-lg font-bold flex items-center gap-3 transition-all shadow-md text-[#5d4037]">
+
+          <span>
+            signup
+          </span>
+        </Link>
+
       </div>
     </nav>
   );

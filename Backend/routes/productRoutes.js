@@ -1,27 +1,15 @@
 import express from 'express';
-import Product from '../models/productModel.js';
-
 const router = express.Router();
+import { getProducts, getProductById, deleteProduct , createProduct, updateProduct} from '../controllers/productController.js';
+import { protect, admin } from '../middleware/authMiddleware.js';
 
-router.get('/', async (req, res) => {
-    // Product.find({}) matlab DB mein jao aur sab kuch utha lao
-    const products = await Product.find({});
-    
-    // Samaan ko browser ko de do
-    res.json(products);
-});
+router.route('/').get(getProducts)
+                 .post(protect, admin, createProduct);
 
-// 2. Koi Ek (Single) Samaan Mangne ka rasta (ID ke hisaab se)
-// Rasta: GET /api/products/:id
-router.get('/:id', async (req, res) => {
-    // req.params.id matlab browser ne URL mein jo ID bheji hai, usko uthao aur DB mein dhoondo
-    const product = await Product.findById(req.params.id);
+router.route('/:id')
+    .get(getProductById)
+    .delete(protect, admin, deleteProduct)
+    .put(protect, admin, updateProduct);
 
-    if (product) {
-        res.json(product); // Agar mil gaya toh bhej do
-    } else {
-        res.status(404).json({ message: 'Product nahi mila bhai!' }); // Nahi mila toh error de do
-    }
-});
 
-export default router; // Is raste ko bahar bhej do taaki server isko use kar sake
+export default router;

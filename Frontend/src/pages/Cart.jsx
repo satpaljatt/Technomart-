@@ -1,25 +1,24 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
+
 
 const Cart = () => {
-const { cartItems, increaseQuantity, decreaseQuantity ,removeFromCart} = useContext(CartContext);
-  // ==========================================
-  // 🧠 TERA LOGIC (Ekdum Safe)
-  // ==========================================
- let gullak = 0;
 
+const navigate = useNavigate();
+const { cartItems, increaseQuantity, decreaseQuantity ,removeFromCart} = useContext(CartContext);
+
+  let gullak = 0;
+  
   cartItems.forEach((item) => {
-    // Price ko quantity se multiply karke gullak mein daalo
     gullak = gullak + (item.price * item.quantity);
   });
 
   const total = gullak + 50;
-  // ==========================================
-  // qantity ko update karna hai
 
-
- 
-
+  const handleCheckout = () => {
+     navigate('/shipping'); 
+   }; 
 
   return (
     <div className="min-h-screen bg-slate-900 text-white p-8">
@@ -107,8 +106,8 @@ const { cartItems, increaseQuantity, decreaseQuantity ,removeFromCart} = useCont
               </span>
             </div>
 
-            <button className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black text-lg py-4 rounded-xl mt-8 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/40 active:scale-95 flex justify-center items-center gap-2 group">
-              <span>Proceed to Checkout</span>
+            <button className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black text-lg py-4 rounded-xl mt-8 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/40 active:scale-95 flex justify-center items-center gap-2 group" onClick={handleCheckout}>
+              <span >Proceed to Checkout</span>
               <span className="group-hover:translate-x-1 transition-transform">➡️</span>
             </button>
 

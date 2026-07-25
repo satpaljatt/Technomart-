@@ -16,7 +16,7 @@ const registerUser = async (req, res) => {
 
     const userExist =  await User.findOne({ email });
 
-    console.log(userExist);
+    
     
     if (userExist) {
        return res.status(400).json({ message: "User already exists" });
@@ -74,7 +74,8 @@ const ismatch = await bcrypt.compare(password,user.password);
        return  res.status(200).json({
             _id: user._id,
             name: user.name,
-            email: user.email,
+         email: user.email,
+            isAdmin: user.isAdmin,
             token: generateToken(user._id),
         });
     }
@@ -85,5 +86,49 @@ const ismatch = await bcrypt.compare(password,user.password);
     }
 };
 
+const updateUserProfile = async (req, res) => {
 
-export { registerUser, loginUser };
+    const user = await User.findById(req.user._id);
+
+    if (user) {
+      user.name = req.body.name || user.name; 
+        
+        if (req.body.password) {
+        user.password = await bcrypt.hash(req.body.password, 10);
+        }
+
+
+        
+        const updatedUser = await user.save();
+        
+        res.json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        
+        token: generateToken(updatedUser._id),
+      });
+        
+    } else {
+      res.status(404).json({ message: "User not found" })
+     
+    }
+};
+  
+ const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}).select('-password').sort({ createdAt: -1 });
+
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: 'No users found' });
+      }
+      
+    res.json(users); 
+  }
+  catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+export { registerUser, loginUser , updateUserProfile , getAllUsers};

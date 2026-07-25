@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+
 
 const LoginForm = () => {
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
+  const { login } = useAuth();
+  
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
     console.log("Login:", { email, password });
 
@@ -14,6 +22,15 @@ const LoginForm = () => {
       const response = await axios.post('http://localhost:5000/api/users/login', { email, password });
 
       console.log("Backend se ye data aaya hai:", response.data);
+
+      login(response.data);
+      
+      alert("Login Successful");
+      
+      navigate("/");
+
+       
+      
     }
    catch (error) {
       // '?' lagane se agar response nahi aayega, toh code fatega nahi
@@ -77,9 +94,14 @@ const LoginForm = () => {
           {/* Register */}
           <p className="text-center text-sm text-gray-500">
             Not a member?{" "}
-            <span className="text-blue-500 cursor-pointer hover:underline">
+
+            <Link to="/signup">
+                <span className="text-blue-500 cursor-pointer hover:underline">
               Register now
             </span>
+            </Link>
+            
+
           </p>
 
         </form>

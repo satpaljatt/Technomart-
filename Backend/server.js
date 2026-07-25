@@ -4,6 +4,7 @@ import cors from 'cors';
 import connectDB from './config/db.js'; 
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/user.js';
+import orderRoutes from './routes/orderRoutes.js';
 
 dotenv.config();
 
@@ -17,6 +18,8 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send('TechnoMart API is Running... 🚀');
 });
+
+app.use('/api/orders', orderRoutes);
 
 app.use('/api/products', productRoutes);
 

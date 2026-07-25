@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import { Link , useNavigate} from "react-router-dom";
+import {useAuth } from "../context/AuthContext";
 
 const RegisterScreen = () => {
   
@@ -22,10 +23,15 @@ const RegisterScreen = () => {
   };
 
 
+ const navigate = useNavigate();
 
+
+  const { login } = useAuth();
 
 
   const handleSubmit = async (e) => {
+
+   
     e.preventDefault();
 
 
@@ -45,10 +51,18 @@ const RegisterScreen = () => {
 
       console.log("Backend se ye data aaya hai:", response.data);
 
-    } catch (error) {
-      console.log("Data lane mein error:", error.response.data.message);
+     login (response.data);
 
-       const errormessage = error.response.data.message
+      alert("Registration Successful");
+
+      navigate("/");
+
+    
+    } catch (error) {
+
+     const errormessage = error.response?.data?.message || "Kuch error aayi hai bhai!";
+      console.log("Puri Error Details:", errormessage);
+
       alert(errormessage);
     }
     
@@ -131,22 +145,29 @@ const RegisterScreen = () => {
 
           
           {/* Sign Up Button */}
-          <button
+
+         
+            <button
             type="submit"
-            className="w-full rounded-full bg-[#18648c] py-3 text-sm font-semibold text-white transition hover:bg-[#124d6e]"
-           onSubmit={handleSubmit}
+            className="w-full rounded-full bg-[#18648c] py-3 text-sm font-semibold text-white transition hover:bg-[#185b81]"
+           
           >
             Sign Up
           </button>
+          
+         
 
 
           {/* Login Link */}
           <p className="mt-4 text-center text-xs text-gray-500">
             Already a member?{" "}
 
-            <span className="cursor-pointer text-[#18648c] font-semibold hover:underline">
+            <Link to="/login">
+              <span className="cursor-pointer text-[#18648c] font-semibold hover:underline">
               Login Here
             </span>
+            </Link>
+            
 
           </p>
 

@@ -26,6 +26,7 @@ const Home = () => {
   }, []);
   // ==========================================
 
+
   return (
     <div className="min-h-screen bg-slate-900 text-white p-8">
       <h1 className="text-5xl font-black text-center text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 mb-12 drop-shadow-lg tracking-wide">

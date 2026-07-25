@@ -17,6 +17,16 @@ export const CartProvider = ({ children }) => {
       }
     }
   )
+// shipping
+  const [shippingAddress, setShippingAddress] = useState(() => {
+    const savedAddress = localStorage.getItem('shippingAddress');
+    return savedAddress ? JSON.parse(savedAddress) : {}; 
+  });
+
+  //payment 
+  const [paymentMethod, setPaymentMethod] = useState(() => {
+  return localStorage.getItem('paymentMethod') || 'card'; 
+});
 
              
   const addToCart = (product) => {
@@ -65,6 +75,7 @@ export const CartProvider = ({ children }) => {
       );
     };
 
+
     const removeFromCart = (id) => {
      
       setCartItems(
@@ -75,16 +86,41 @@ export const CartProvider = ({ children }) => {
       );
     };
 
+  
+  const clearCart = () => {
+    setCartItems([]);
+  };
+  
+  
+  const saveShippingAddress = (data) => {
+  setShippingAddress(data);
+};
 
+  
     useEffect(() => {
 
       localStorage.setItem("cart", JSON.stringify(cartItems))
 
     }, [cartItems]);
+  
+  // shippingaddress
+  useEffect(() => {
+    localStorage.setItem('shippingAddress', JSON.stringify(shippingAddress));
+  }, [shippingAddress]);
+
+ // payment
+  useEffect(() => {
+  localStorage.setItem('paymentMethod', paymentMethod);
+  }, [paymentMethod]);
+  
+
+  const savePaymentMethod = (method) => {
+  setPaymentMethod(method);
+};
 
     return (
          
-      <CartContext.Provider value={{ cartItems, addToCart, increaseQuantity, decreaseQuantity, removeFromCart }}>
+      <CartContext.Provider value={{ cartItems, addToCart, increaseQuantity, decreaseQuantity, removeFromCart, shippingAddress, saveShippingAddress,paymentMethod, savePaymentMethod,clearCart }}>
         {children}
       </CartContext.Provider>
          

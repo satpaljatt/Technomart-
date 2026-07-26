@@ -18,10 +18,24 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         required: true,
         default: false // By default koi admin nahi hoga
+    },
+
+
+    addresses: [
+        {
+            addressType: { type: String, default: 'Home' },
+            address: { type: String, required: true },
+            city: { type: String, required: true },
+            pincode: { type: String, required: true },
+            country: { type: String, required: true },
+        }
+    ],
+    
+},
+    {
+        timestamps: true
     }
-}, {
-    timestamps: true // Ye batayega account kab bana (Date/Time)
-});
+);
 
 const User = mongoose.model('User', userSchema);
 

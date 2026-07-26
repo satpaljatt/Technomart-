@@ -40,9 +40,14 @@ const Navbar = () => {
 
         {user ? (
           <>
-            <Link to="/profile" className="bg-[#F5E0C3] hover:bg-[#EBD5B0] px-5 py-2.5 rounded-lg font-semibold flex items-center gap-3 transition-all shadow-md">
-              <span className="text-[#5d4037]">Profile</span>
-            </Link>
+           {user ? (
+  <Link to="/profile" className="bg-[#F5E0C3] hover:bg-[#EBD5B0] px-5 py-2.5 rounded-lg font-semibold flex items-center gap-3 transition-all shadow-md">
+    <span className="text-[#5d4037]">{user.name || 'Profile'}</span>
+  </Link>
+) : (
+ 
+  <Link to="/login" className="text-gray-600 hover:text-gray-900 font-semibold">Login</Link>
+)}
 
  {user && user.isAdmin && (
   <div className="relative">

@@ -17,6 +17,8 @@ import ProductCreateScreen from './screens/ProductCreateScreen'
 import Editproduct from './screens/Editproduct'
 import Oneproductscreen from './screens/Oneproductscreen'
 import OrderList from './screens/OrderList'
+import MyOrdersScreen from './screens/MyOrdersScreen'
+import SavedAddressesScreen from './screens/SavedAddressesScreen'
 
 
 const App = () => {
@@ -59,6 +61,10 @@ const App = () => {
         <Route path="/admin/product/:id" element={<Oneproductscreen />} />
 
         <Route path="/admin/orderlist" element={<OrderList />} />
+
+        <Route path="/myorders" element={<MyOrdersScreen />} />
+        
+        <Route path="/savedaddresses" element={<SavedAddressesScreen />} />
         
       </Routes>
 

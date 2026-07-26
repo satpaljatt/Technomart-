@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { registerUser, loginUser, updateUserProfile, getAllUsers } from '../controllers/userController.js';
+import { registerUser, loginUser, updateUserProfile, getAllUsers, getUserAddresses, addAddress, deleteAddress, updateAddress } from '../controllers/userController.js';
 
 import { protect, admin } from '../middleware/authMiddleware.js';
 
@@ -13,5 +13,9 @@ router.route('/').get(protect, admin, getAllUsers);
 router.post('/register', registerUser);
 
 router.post('/login', loginUser);
+
+router.route('/addresses').get(protect, getUserAddresses).post(protect, addAddress);
+
+router.route('/addresses/:id').delete(protect, deleteAddress).put(protect, updateAddress);
 
 export default router;

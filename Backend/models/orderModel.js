@@ -29,7 +29,9 @@ const orderSchema = new Schema(
       city: { type: String, required: true },
       pincode: { type: String, required: true }, 
       country: { type: String, required: true }
-        },
+    },
+    
+    
     
     paymentMethod: {
       type: String,
@@ -86,16 +88,25 @@ const orderSchema = new Schema(
     
     deliveredAt: {
       type: Date
-        }
+    },
+    
+   
+
+    
     
     },
   
   {
     timestamps: true 
-    }
+  }
+  
   
 );
 
 const Order = mongoose.model('Order', orderSchema);
 
 export default Order;
+
+
+
+ 

@@ -2,6 +2,8 @@ import User from "../models/userModel.js";
 import generateToken from '../utils/generateToken.js';
 import bcrypt from "bcryptjs";
 
+import asyncHandler from "express-async-handler";
+
 
 // 🧑‍💻 1. REGISTER USER  (Naya Khata Kholna)
 // ==========================================
@@ -131,4 +133,76 @@ const updateUserProfile = async (req, res) => {
 };
 
 
-export { registerUser, loginUser , updateUserProfile , getAllUsers};
+
+
+const getUserAddresses = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+  if (user) {
+    res.json(user.addresses || []);
+  } else {
+    res.status(404);
+    throw new Error('User nahi mila bhai');
+  }
+});
+
+
+const addAddress = asyncHandler(async (req, res) => {
+  const { addressType, address, city, pincode, country } = req.body;
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    const newAddress = { addressType, address, city, pincode, country };
+    user.addresses.push(newAddress);
+    await user.save();
+    res.status(201).json(user.addresses);
+  } else {
+    res.status(404);
+    throw new Error('User nahi mila bhai');
+  }
+});
+
+
+const updateAddress = asyncHandler(async (req, res) => {
+  const { addressType, address, city, pincode, country } = req.body;
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    const targetAddress = user.addresses.id(req.params.id);
+    if (targetAddress) {
+      targetAddress.addressType = addressType || targetAddress.addressType;
+      targetAddress.address = address || targetAddress.address;
+      targetAddress.city = city || targetAddress.city;
+      targetAddress.pincode = pincode || targetAddress.pincode;
+      targetAddress.country = country || targetAddress.country;
+
+      await user.save();
+      res.json(user.addresses);
+    } else {
+      res.status(404);
+      throw new Error('Address nahi mila bhai');
+    }
+  } else {
+    res.status(404);
+    throw new Error('User nahi mila bhai');
+  }
+});
+
+
+const deleteAddress = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.addresses = user.addresses.filter(
+      (addr) => addr._id.toString() !== req.params.id
+    );
+    await user.save();
+    res.json(user.addresses);
+  } else {
+    res.status(404);
+    throw new Error('User nahi mila bhai');
+  }
+});
+
+
+
+export { registerUser, loginUser , updateUserProfile , getAllUsers, getUserAddresses, addAddress, updateAddress, deleteAddress };

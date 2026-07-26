@@ -47,16 +47,18 @@ const ProfileScreen = () => {
           <div className="mt-10 border-t border-gray-200 pt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
             
             {/* Orders Section */}
-            <div className="p-5 border-2 border-transparent rounded-xl hover:border-blue-200 hover:shadow-md transition-all cursor-pointer bg-blue-50 group">
-              <div className="flex items-center gap-4">
-                <span className="text-3xl group-hover:scale-110 transition-transform">📦</span>
-                <div>
-                  <h3 className="font-bold text-gray-800 text-lg">My Orders</h3>
-                  <p className="text-sm text-gray-600">Track, return, or buy things again</p>
-                </div>
-              </div>
-            </div>
-
+<div 
+  onClick={() => navigate('/myorders')} 
+  className="p-5 border-2 border-transparent rounded-xl hover:border-blue-200 hover:shadow-md transition-all cursor-pointer bg-blue-50 group"
+>
+  <div className="flex items-center gap-4">
+    <span className="text-3xl group-hover:scale-110 transition-transform">📦</span>
+    <div>
+      <h3 className="font-bold text-gray-800 text-lg">My Orders</h3>
+      <p className="text-sm text-gray-600">Track, return, or buy things again</p>
+    </div>
+  </div>
+</div>
             {/* Account Settings Section */}
             <div className="p-5 border-2 border-transparent rounded-xl hover:border-orange-200 hover:shadow-md transition-all cursor-pointer bg-orange-50 group" onClick={handleEditprofile}>
               <div className="flex items-center gap-4">
@@ -69,7 +71,8 @@ const ProfileScreen = () => {
             </div>
 
             {/* Saved Addresses Section */}
-            <div className="p-5 border-2 border-transparent rounded-xl hover:border-green-200 hover:shadow-md transition-all cursor-pointer bg-green-50 group">
+            <div className="p-5 border-2 border-transparent rounded-xl hover:border-green-200 hover:shadow-md transition-all cursor-pointer bg-green-50 group"
+            onClick={() => navigate('/savedaddresses')}>
               <div className="flex items-center gap-4">
                 <span className="text-3xl group-hover:scale-110 transition-transform">📍</span>
                 <div>

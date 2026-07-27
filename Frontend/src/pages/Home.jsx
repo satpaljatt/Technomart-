@@ -15,7 +15,7 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/products');
+        const response = await axios.get('https://technomart-peach.vercel.app/api/products');
         setProducts(response.data);
       } catch (error) {
         console.log("Data lane mein error:", error);

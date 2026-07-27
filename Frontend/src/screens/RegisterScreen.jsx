@@ -47,7 +47,7 @@ const RegisterScreen = () => {
 
 
     try {
-      const response = await axios.post('http://localhost:5000/api/users/register', formData);
+      const response = await axios.post('https://technomart-peach.vercel.app/api/users/register', formData);
 
       console.log("Backend se ye data aaya hai:", response.data);
 

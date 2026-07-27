@@ -19,7 +19,7 @@ const LoginForm = () => {
 
     try {
 
-      const response = await axios.post('http://localhost:5000/api/users/login', { email, password });
+      const response = await axios.post('https://technomart-peach.vercel.app/api/users/login', { email, password });
 
       console.log("Backend se ye data aaya hai:", response.data);
 

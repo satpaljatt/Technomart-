@@ -35,7 +35,7 @@ const Editprofile = () => {
   try {
   
     const response = await axios.put(
-      'http://localhost:5000/api/users/profile', 
+      'https://technomart-peach.vercel.app/api/users/profile', 
       formData, 
       config
     );

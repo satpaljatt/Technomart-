@@ -19,58 +19,42 @@ import Oneproductscreen from './screens/Oneproductscreen'
 import OrderList from './screens/OrderList'
 import MyOrdersScreen from './screens/MyOrdersScreen'
 import SavedAddressesScreen from './screens/SavedAddressesScreen'
-
+import Footer from './components/Footer'
 
 const App = () => {
- 
   return (
-    <>
+   
+    <div className="flex flex-col min-h-screen bg-gray-100">
       <Navbar />
-      <Routes>
-       
-        <Route path="/" element={<Home />} />
+      
+     
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Cart" element={<Cart />} />
+          <Route path="/signup" element={<RegisterScreen />} />
+          <Route path="/login" element={<LoginScreen />} /> 
+          <Route path="/profile" element={<ProfileScreen />} />
+          <Route path="/editprofile" element={<Editprofile />} />
+          <Route path="/shipping" element={<ShippingScreen />} />
+          <Route path="/placeorder" element={<PlaceOrderScreen />} />
+          <Route path="/order/:id" element={<Orderdetail />} />
+          <Route path="/payment" element={<PaymentScreen />} />
+          <Route path="/admin/userlist" element={<UserListScreen />} />
+          <Route path="/admin/productlist" element={<ProductListScreen />} />
+          <Route path="/admin/product/create" element={<ProductCreateScreen />} />
+          
+          <Route path="/admin/product/:id/edit" element={<Editproduct />} />
+          <Route path="/admin/product/:id" element={<Oneproductscreen />} />
+          <Route path="/admin/orderlist" element={<OrderList />} />
+          <Route path="/myorders" element={<MyOrdersScreen />} />
+          <Route path="/savedaddresses" element={<SavedAddressesScreen />} />
+        </Routes>
+      </main>
 
-        <Route path="/Cart" element={<Cart />} />
-        
-        <Route path="/signup" element={<RegisterScreen />} />
-
-        <Route path="/login" element={<LoginScreen />} /> 
-
-      <Route path="/profile" element={<ProfileScreen />} />
-
-     <Route path="/editprofile" element={<Editprofile />} />
-
-        <Route path="/shipping" element={<ShippingScreen />} />
-
-        <Route path="/placeorder" element={<PlaceOrderScreen />} />
-
-        <Route path="/order/:id" element={<Orderdetail />} />
-
-        <Route path="/admin/product/create" element={<ProductCreateScreen />} />
-
-        <Route path= "/payment" element ={<PaymentScreen />} />
-
-        <Route path="/admin/userlist" element={<UserListScreen />} />
-        
-        <Route path="/admin/productlist" element={<ProductListScreen />} />
-
-       <Route path="/admin/product/create" element={<ProductCreateScreen />} />
-        
-        <Route path="/admin/product/:id/edit" element={<Editproduct />} />
-
-        <Route path="/admin/product/:id" element={<Oneproductscreen />} />
-
-        <Route path="/admin/orderlist" element={<OrderList />} />
-
-        <Route path="/myorders" element={<MyOrdersScreen />} />
-        
-        <Route path="/savedaddresses" element={<SavedAddressesScreen />} />
-        
-      </Routes>
-
-      </>
+      <Footer />
+    </div>
   )
 }
 
 export default App
-

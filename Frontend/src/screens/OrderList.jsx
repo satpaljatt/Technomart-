@@ -7,15 +7,18 @@ const OrderList = () => {
   const [error, setError] = useState('');
 
   const fetchOrders = async () => {
+
     try {
       setLoading(true);
       const { data } = await axios.get('/api/orders'); 
       setOrders(data);
       setLoading(false);
-    } catch (err) {
+    }
+    catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch orders');
       setLoading(false);
     }
+    
   };
 
   useEffect(() => {

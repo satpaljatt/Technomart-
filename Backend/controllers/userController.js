@@ -66,11 +66,7 @@ const loginUser = async (req, res) => {
      return res.status(400).json({ message: "User not found" });
 }
 
-
-
 const ismatch = await bcrypt.compare(password,user.password);
-
-
 
     if (ismatch) {
        return  res.status(200).json({
@@ -81,10 +77,8 @@ const ismatch = await bcrypt.compare(password,user.password);
             token: generateToken(user._id),
         });
     }
-    else {
-      
+    else {     
           return res.status(400).json({ message: "Invalid credentials" });
-
     }
 };
 
